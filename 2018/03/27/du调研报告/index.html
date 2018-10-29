@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="android,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="du简介du(Dynamic Update)是一款招才猫团队自研的, 基于JavaScript语言的, 支持android客户端动态化的技术解决方案, 用于构建原生App体验的开发框架. du有以下特点:  无需发版, 动态下发业务逻辑 原生的用户体验 自研发 面向Android开发者  DU的工作原理 DU框架结构 DU性能分析 UI组件每次API调用比原生要多附加10ms 200条列表数据加载">
+<meta name="keywords" content="android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="du调研报告">
+<meta property="og:url" content="http://eaglelzy.github.io/2018/03/27/du调研报告/index.html">
+<meta property="og:site_name" content="Lizy&#39;s Wiki">
+<meta property="og:description" content="du简介du(Dynamic Update)是一款招才猫团队自研的, 基于JavaScript语言的, 支持android客户端动态化的技术解决方案, 用于构建原生App体验的开发框架. du有以下特点:  无需发版, 动态下发业务逻辑 原生的用户体验 自研发 面向Android开发者  DU的工作原理 DU框架结构 DU性能分析 UI组件每次API调用比原生要多附加10ms 200条列表数据加载">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://eaglelzy.github.io/assets/images/du/du_work.png">
+<meta property="og:image" content="http://eaglelzy.github.io/assets/images/du/du_arch.png">
+<meta property="og:image" content="http://eaglelzy.github.io/asserts/images/du/du_xingneng.png">
+<meta property="og:updated_time" content="2018-10-29T05:07:11.243Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="du调研报告">
+<meta name="twitter:description" content="du简介du(Dynamic Update)是一款招才猫团队自研的, 基于JavaScript语言的, 支持android客户端动态化的技术解决方案, 用于构建原生App体验的开发框架. du有以下特点:  无需发版, 动态下发业务逻辑 原生的用户体验 自研发 面向Android开发者  DU的工作原理 DU框架结构 DU性能分析 UI组件每次API调用比原生要多附加10ms 200条列表数据加载">
+<meta name="twitter:image" content="http://eaglelzy.github.io/assets/images/du/du_work.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":15,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://eaglelzy.github.io/2018/03/27/du调研报告/">
+
+
+
+
+
+  <title>du调研报告 | Lizy's Wiki</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Lizy's Wiki</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://eaglelzy.github.io/2018/03/27/du调研报告/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lizy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lizy's Wiki">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">du调研报告</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-27T00:00:00+08:00">
+                2018-03-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/03/27/du调研报告/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/03/27/du调研报告/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="du简介"><a href="#du简介" class="headerlink" title="du简介"></a>du简介</h2><p>du(Dynamic Update)是一款招才猫团队自研的, 基于JavaScript语言的, 支持android客户端动态化的技术解决方案, 用于构建原生App体验的开发框架. du有以下特点:</p>
+<ol>
+<li>无需发版, 动态下发业务逻辑</li>
+<li>原生的用户体验</li>
+<li>自研发</li>
+<li>面向Android开发者</li>
+</ol>
+<h2 id="DU的工作原理"><a href="#DU的工作原理" class="headerlink" title="DU的工作原理"></a>DU的工作原理</h2><p><img src="/assets/images/du/du_work.png" alt=""></p>
+<h2 id="DU框架结构"><a href="#DU框架结构" class="headerlink" title="DU框架结构"></a>DU框架结构</h2><p><img src="/assets/images/du/du_arch.png" alt=""></p>
+<h2 id="DU性能分析"><a href="#DU性能分析" class="headerlink" title="DU性能分析"></a>DU性能分析</h2><ol>
+<li>UI组件每次API调用比原生要多附加10ms</li>
+<li>200条列表数据加载比原生慢150ms</li>
+<li>大数据量网络请求比原生慢100ms</li>
+<li>其他与原生交互性能差别不大</li>
+</ol>
+<p>复杂页面加载速度比Native略慢<br>简单页面基本与Native实现速度一致.<br>进行过内存压力测试, 加载100万条JS语句, 内存可以及时回收, 无内存泄露问题, 无内存溢出现象</p>
+<p>du和Native页面性能对比:<br><img src="/asserts/images/du/du_xingneng.png" alt=""></p>
+<h2 id="接入成本"><a href="#接入成本" class="headerlink" title="接入成本"></a>接入成本</h2><p>接入du主要要做3方面工作:</p>
+<ol>
+<li><p>二次开发,<br>主要是组件扩展, 扩展模块接入, 数据转换模块接入. 比如网络, 定位, 日志, 埋点等基础模块的开发.<br>在前期这是主要的工作. 扩展组件越丰富, 开发效率就越高. </p>
+</li>
+<li><p>混淆问题<br>目前du是不支持混淆的, 还要招才猫团队提供混淆规则</p>
+</li>
+<li><p>更新方案<br>目前du框架的更新模块跟sdk是一起的, 需要等招才猫团队把更新模块剥离出来, 并且要搭建统一的版本管理平台. </p>
+</li>
+</ol>
+<h2 id="与RN比较"><a href="#与RN比较" class="headerlink" title="与RN比较"></a>与RN比较</h2><h3 id="跨平台"><a href="#跨平台" class="headerlink" title="跨平台"></a>跨平台</h3><p>rn支持Android,IOS和web多个平台, 可以复用大部分代码<br>du只支持Android, 对于android开发比较友好</p>
+<h3 id="学习成本"><a href="#学习成本" class="headerlink" title="学习成本"></a>学习成本</h3><p>rn有许多依赖配置工具, 对于Android开发者学习成本相对较高.<br>du只支持Android, 而且布局跟原生基本一致, 对于android开发者学习成本较小.</p>
+<h3 id="开发调试"><a href="#开发调试" class="headerlink" title="开发调试"></a>开发调试</h3><p>都支持使用Android Studio和js编辑器开发<br>都可以在chrome中调试js代码</p>
+<h3 id="扩展性"><a href="#扩展性" class="headerlink" title="扩展性"></a>扩展性</h3><p>du和rn都支持组件的扩展, rn第三方库比较全</p>
+<h3 id="依赖引擎"><a href="#依赖引擎" class="headerlink" title="依赖引擎"></a>依赖引擎</h3><p>du依赖V8引擎, rn依赖JSCore</p>
+<h3 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h3><p>对于不复杂的界面, du和rn都可以达到接近原生的性能</p>
+<h3 id="社区文档支持"><a href="#社区文档支持" class="headerlink" title="社区文档支持"></a>社区文档支持</h3><p>rn有成熟的社区和详细的文档, facebook, google, QQ, 百度, 京东等都有使用<br>du由于是自研, 目前只有招才猫使用. 文档还需完善</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<li>rn在跨平台上有很大优势, 同时支持IOS,Android和web, 可以节省人力. 原来3端的人力, 使用rn可能只需要1.5个人就可以完成.<br>du目前只支持Android平台, 对于android开发者比较友好. </li>
+<li>rn有成熟的社区和完善的文档, 而且有大量优秀项目已经在应用, 已经非常成熟. du则是我们自研, 目前只有招才猫在使用, 文档还需要完善</li>
+<li>对于android来说接入du的成本比较小, 但是从长远来看考虑到rn的跨平台性, 接入rn的成本会更小一些. </li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Lizy
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://eaglelzy.github.io/2018/03/27/du调研报告/" title="du调研报告">http://eaglelzy.github.io/2018/03/27/du调研报告/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/android/" rel="tag"># android</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/02/android/内存优化总结/" rel="next" title="内存优化总结">
+                <i class="fa fa-chevron-left"></i> 内存优化总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/16/react_native/Image组件调研/" rel="prev" title="Image组件在Android上的使用">
+                Image组件在Android上的使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2018/03/27/du调研报告/" data-title="du调研报告" data-url="http://eaglelzy.github.io/2018/03/27/du调研报告/">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="Lizy">
+            
+              <p class="site-author-name" itemprop="name">Lizy</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#du简介"><span class="nav-number">1.</span> <span class="nav-text">du简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DU的工作原理"><span class="nav-number">2.</span> <span class="nav-text">DU的工作原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DU框架结构"><span class="nav-number">3.</span> <span class="nav-text">DU框架结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DU性能分析"><span class="nav-number">4.</span> <span class="nav-text">DU性能分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接入成本"><span class="nav-number">5.</span> <span class="nav-text">接入成本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#与RN比较"><span class="nav-number">6.</span> <span class="nav-text">与RN比较</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#跨平台"><span class="nav-number">6.1.</span> <span class="nav-text">跨平台</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#学习成本"><span class="nav-number">6.2.</span> <span class="nav-text">学习成本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开发调试"><span class="nav-number">6.3.</span> <span class="nav-text">开发调试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展性"><span class="nav-number">6.4.</span> <span class="nav-text">扩展性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#依赖引擎"><span class="nav-number">6.5.</span> <span class="nav-text">依赖引擎</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性能"><span class="nav-number">6.6.</span> <span class="nav-text">性能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#社区文档支持"><span class="nav-number">6.7.</span> <span class="nav-text">社区文档支持</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">版权所有 Lizy</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"eaglelzy"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

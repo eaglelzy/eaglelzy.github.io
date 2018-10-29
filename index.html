@@ -414,650 +414,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://eaglelzy.github.io/2018/10/29/react_native/rn跳转调研/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lizy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lizy's Wiki">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/29/react_native/rn跳转调研/" itemprop="url">未命名</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-29T10:18:39+08:00">
-                2018-10-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/10/29/react_native/rn跳转调研/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/10/29/react_native/rn跳转调研/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="rn跳转调研"><a href="#rn跳转调研" class="headerlink" title="rn跳转调研"></a>rn跳转调研</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>rn的跳转分为两部分:</p>
-<ol>
-<li>rn页面之间的跳转</li>
-<li>rn和native互跳</li>
-</ol>
-<h3 id="rn页面之间的跳转"><a href="#rn页面之间的跳转" class="headerlink" title="rn页面之间的跳转"></a>rn页面之间的跳转</h3><p>rn 页面之间的跳转使用的是<a href="https://reactnavigation.org/docs/getting-started.html" target="_blank" rel="noopener">react-navigation</a>,该库主要包含3个跳转相关组件:</p>
-<ol>
-<li>StackNavigator(页面之间的跳转)</li>
-<li>TabNavigator(Tab之间的跳转)</li>
-<li>DrawerNavigator(android侧滑抽屉的跳转)</li>
-</ol>
-<p>使用react-navigation必须要安装<code>react-navigation</code>包:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yarn add react-navigation</span><br><span class="line"><span class="meta">#</span> 或</span><br><span class="line"><span class="meta">#</span> npm install --save react-navigation</span><br></pre></td></tr></table></figure>
-<p>StackNavigator的跳转示例:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Button, View, Text &#125; <span class="keyword">from</span> <span class="string">'react-native'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; StackNavigator &#125; <span class="keyword">from</span> <span class="string">'react-navigation'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Home</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HomeScreen</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;View style=&#123;&#123; <span class="attr">flex</span>: <span class="number">1</span>, <span class="attr">alignItems</span>: <span class="string">'center'</span>, <span class="attr">justifyContent</span>: <span class="string">'center'</span> &#125;&#125;&gt;</span><br><span class="line">        &lt;Text&gt;Home Screen&lt;<span class="regexp">/Text&gt;</span></span><br><span class="line"><span class="regexp">        &lt;Button</span></span><br><span class="line"><span class="regexp">          title="Go to Details"</span></span><br><span class="line"><span class="regexp">          onPress=&#123;() =&gt; this.props.navigation.navigate('Details'), &#123;</span></span><br><span class="line"><span class="regexp">            itemId: 83,</span></span><br><span class="line"><span class="regexp">            params: 'hello',</span></span><br><span class="line"><span class="regexp">          &#125;&#125;</span></span><br><span class="line"><span class="regexp">        /</span>&gt;</span><br><span class="line">      &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ Details</span></span><br><span class="line"><span class="regexp">class DetailsScreen extends React.Component &#123;</span></span><br><span class="line"><span class="regexp">  render() &#123;</span></span><br><span class="line"><span class="regexp">    return (</span></span><br><span class="line"><span class="regexp">      &lt;View style=&#123;&#123; flex: 1, alignItems: 'center', justifyContent: 'center' &#125;&#125;&gt;</span></span><br><span class="line"><span class="regexp">        &lt;Text&gt;Details Screen&lt;/</span>Text&gt;</span><br><span class="line">      &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp">export default StackNavigator(&#123;</span></span><br><span class="line"><span class="regexp">  Home: &#123;</span></span><br><span class="line"><span class="regexp">    screen: HomeScreen,</span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">&#125;);</span></span><br></pre></td></tr></table></figure>
-<h3 id="rn和native互跳"><a href="#rn和native互跳" class="headerlink" title="rn和native互跳"></a>rn和native互跳</h3><h4 id="native跳rn"><a href="#native跳rn" class="headerlink" title="native跳rn"></a>native跳rn</h4><p>这种跳转跟本地的跳转是一样的, 直接用<code>startActivity</code>或<code>startActivityForResutl</code>方式打开rn的承载页即可.<br>需要注意的是可以通过重写getLaunchOptions()来向rn端传递参数.<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// native端</span></span><br><span class="line">@Override</span><br><span class="line">protected ReactActivityDelegate createReactActivityDelegate() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ReactActivityDelegate(<span class="keyword">this</span>, getMainComponentName()) &#123;</span><br><span class="line">        @Override</span><br><span class="line">        protected Bundle getLaunchOptions() &#123;</span><br><span class="line">            Bundle initialProperties = <span class="keyword">new</span> Bundle();</span><br><span class="line">            initialProperties.putString(<span class="string">"images1"</span>, <span class="string">"http://www.example.logo1.jpg"</span>);</span><br><span class="line">            initialProperties.putString(<span class="string">"images2"</span>, <span class="string">"http://www.example.logo2.jpg"</span>);</span><br><span class="line">            <span class="keyword">return</span> initialProperties;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//rn 端</span></span><br><span class="line">...</span><br><span class="line">componentWillMount() &#123;</span><br><span class="line">    <span class="comment">// 取参数</span></span><br><span class="line">    <span class="keyword">const</span> image = <span class="keyword">this</span>.props.images1;</span><br><span class="line">    <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">        datas: [image],</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="rn跳native"><a href="#rn跳native" class="headerlink" title="rn跳native"></a>rn跳native</h4><p>rn跳native可以通过扩展module来实现, 需要设计一套路由协议, 具体参考<code>src/bridge/BridgeSample.js</code>. </p>
-<blockquote>
-<p>相关源码在<code>src/navigate/</code>目录下.<br>更多示例可以参考: <a href="https://github.com/react-navigation/react-navigation/tree/master/examples" target="_blank" rel="noopener">github</a></p>
-</blockquote>
-<h2 id="踩坑记录"><a href="#踩坑记录" class="headerlink" title="踩坑记录"></a>踩坑记录</h2><h3 id="react-navigation跳转时有两个header"><a href="#react-navigation跳转时有两个header" class="headerlink" title="react-navigation跳转时有两个header"></a>react-navigation跳转时有两个header</h3><p>这是因为在一个StackNavigator中嵌套另一个StackNavigator导致的, 可以通过在navigationOptions设置header: false标签解决</p>
-<h2 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h2><ul>
-<li style="list-style: none"><input type="checkbox"> 设计一套跳转协议, 满足rn和native之间的互跳(目前打算接入阿里的ARouter)</li>
-<li style="list-style: none"><input type="checkbox"> startActivityForResult的最佳实现方式调研</li>
-</ul>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
-<li><a href="https://reactnavigation.org/docs/getting-started.html" target="_blank" rel="noopener">https://reactnavigation.org/docs/getting-started.html</a></li>
-<li><a href="https://github.com/react-navigation/react-navigation/tree/master/examples" target="_blank" rel="noopener">https://github.com/react-navigation/react-navigation/tree/master/examples</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://eaglelzy.github.io/2018/10/25/android/android启动流程/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lizy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lizy's Wiki">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/25/android/android启动流程/" itemprop="url">android启动流程</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-25T19:43:47+08:00">
-                2018-10-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/android/" itemprop="url" rel="index">
-                    <span itemprop="name">android</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/android/源码分析/" itemprop="url" rel="index">
-                    <span itemprop="name">源码分析</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/10/25/android/android启动流程/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/10/25/android/android启动流程/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://eaglelzy.github.io/2018/10/25/react_native/ReactNative源码分析/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lizy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lizy's Wiki">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/25/react_native/ReactNative源码分析/" itemprop="url">ReactNative源码分析</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-25T19:43:47+08:00">
-                2018-10-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/ReactNative/" itemprop="url" rel="index">
-                    <span itemprop="name">ReactNative</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/ReactNative/源码分析/" itemprop="url" rel="index">
-                    <span itemprop="name">源码分析</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/10/25/react_native/ReactNative源码分析/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/10/25/react_native/ReactNative源码分析/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://eaglelzy.github.io/2018/10/25/react_native/赶集客户端集成rn实践/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lizy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lizy's Wiki">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/25/react_native/赶集客户端集成rn实践/" itemprop="url">赶集集成rn实践</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-25T19:43:47+08:00">
-                2018-10-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/ReactNative/" itemprop="url" rel="index">
-                    <span itemprop="name">ReactNative</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/ReactNative/实践/" itemprop="url" rel="index">
-                    <span itemprop="name">实践</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/10/25/react_native/赶集客户端集成rn实践/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/10/25/react_native/赶集客户端集成rn实践/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://eaglelzy.github.io/2018/10/25/随笔/知识积累/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1221,7 +577,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://eaglelzy.github.io/2018/08/29/android/Google架构/">
+    <link itemprop="mainEntityOfPage" href="http://eaglelzy.github.io/2017/09/15/java/并发编程/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Lizy">
@@ -1240,7 +596,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/29/android/Google架构/" itemprop="url">Google架构</a></h1>
+                <a class="post-title-link" href="/2017/09/15/java/并发编程/" itemprop="url">并发编程</a></h1>
         
 
         <div class="post-meta">
@@ -1252,140 +608,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-29T14:33:55+08:00">
-                2018-08-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/08/29/android/Google架构/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/08/29/android/Google架构/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="LiveData"><a href="#LiveData" class="headerlink" title="LiveData"></a>LiveData</h2><h3 id="一些要点"><a href="#一些要点" class="headerlink" title="一些要点"></a>一些要点</h3><ul>
-<li>viewmodel 不要引用view或activity,fragment<br><a href="https://medium.com/androiddevelopers/viewmodels-and-livedata-patterns-antipatterns-21efaef74a54" target="_blank" rel="noopener">遇到的坑</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://eaglelzy.github.io/2018/07/18/android/Android单元测试/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lizy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lizy's Wiki">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/18/android/Android单元测试/" itemprop="url">Android单元测试</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-18T10:22:16+08:00">
-                2018-07-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-15T18:46:12+08:00">
+                2017-09-15
               </time>
             
 
@@ -1407,19 +631,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/android/" itemprop="url" rel="index">
-                    <span itemprop="name">android</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/android/单元测试/" itemprop="url" rel="index">
-                    <span itemprop="name">单元测试</span>
+                  <a href="/categories/并发/" itemprop="url" rel="index">
+                    <span itemprop="name">并发</span>
                   </a>
                 </span>
 
@@ -1436,8 +649,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/18/android/Android单元测试/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/07/18/android/Android单元测试/" itemprop="commentCount"></span>
+                <a href="/2017/09/15/java/并发编程/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/09/15/java/并发编程/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1467,238 +680,90 @@
       
         
           
-            <h2 id="单元测试意义"><a href="#单元测试意义" class="headerlink" title="单元测试意义"></a>单元测试意义</h2><ul>
-<li>提高代码质量</li>
-<li>节约编码时间</li>
-<li>更好的设计</li>
-</ul>
-<h2 id="基本单元测试框架"><a href="#基本单元测试框架" class="headerlink" title="基本单元测试框架"></a>基本单元测试框架</h2><h3 id="Junit"><a href="#Junit" class="headerlink" title="Junit"></a>Junit</h3><p>常用注解</p>
+            <h2 id="并发简介"><a href="#并发简介" class="headerlink" title="并发简介"></a>并发简介</h2><ol>
+<li><p>尽管并发编程面临很多挑战，并发有一些有点使得它一直被使用：</p>
 <ul>
-<li>@Test：把一个方法标记为测试方法</li>
-<li>@Before：每一个测试方法执行前自动调用一次</li>
-<li>@After：每一个测试方法执行完自动调用一次</li>
-<li>@BeforeClass：所有测试方法执行前执行一次，在测试类还没有实例化就已经被加载，所以用static修饰</li>
-<li>@AfterClass：所有测试方法执行完执行一次，在测试类还没有实例化就已经被加载，所以用static修饰</li>
-<li>@Ignore：暂不执行该测试方法</li>
+<li>资源利用率更好</li>
+<li>程序设计在某些情况下更简单</li>
+<li>程序响应更快</li>
 </ul>
-<p>执行顺序:</p>
-<blockquote>
-<p>@BeforeClass –&gt; @Before –&gt; @Test –&gt; @After –&gt; @AfterClass</p>
-</blockquote>
-<p>时间测试:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span>(timeout = <span class="number">1000</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testTimeoutSuccess</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// do nothing</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>异常测试:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span>(timeout = <span class="number">1000</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testTimeoutSuccess</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// do nothing</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Assert 这个类提供了一系列的编写测试的有用的声明方法。</p>
+</li>
+<li><p>并发带来的风险</p>
 <ul>
-<li>void assertEquals(boolean expected, boolean actual)</li>
-<li>void assertFalse(boolean condition)</li>
-<li>void assertNotNull(Object object)</li>
-<li>void assertNull(Object object)</li>
-<li>void assertTrue(boolean condition)</li>
-<li>void fail()</li>
+<li>编写并发程序会在代码上增加额外的开销。</li>
+<li>正确的并发是非常复杂的，即使对于很简单的问题。</li>
+<li>并发中的缺陷因为不易重现也不容易被发现。</li>
+<li>并发往往需要对设计策略从根本上进行修改</li>
 </ul>
-<h3 id="Mockito"><a href="#Mockito" class="headerlink" title="Mockito"></a>Mockito</h3><h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><p>有时我们构建的对象会依赖多个其他对象, 比如:</p>
-<p><img src="/asserts/images/unit_test/mock_demo.png" alt=""></p>
-<p>这时我们可以通过mock其他对象来进行解藕. 如下图:</p>
-<p><img src="/asserts/images/unit_test/mock_demo_2.png" alt=""></p>
-<p>mock测试就是在测试过程中, 对于某些不容易构造的对象, 用一个虚拟对象(Mock对象)来替代以便于测试.  mock技术的目的和作用就是模拟一些在应用中不容易构造或者比较复杂的对象，从而把测试与测试边界以外的对象隔离开.  Mockito就是一个优秀的用于单元测试的mock框架.</p>
-<p>使用mock可以:</p>
-<ul>
-<li>验证该对象某些方法的调用情况, 调用次数, 参数是什么等</li>
-<li>控制该对象的行为, 比如返回值等</li>
-</ul>
-<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><h5 id="构造Mock对象"><a href="#构造Mock对象" class="headerlink" title="构造Mock对象"></a>构造Mock对象</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 直接mock</span></span><br><span class="line"><span class="comment">//List listMock = mock(List.class);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 注解方式</span></span><br><span class="line"><span class="meta">@Mock</span> </span><br><span class="line"><span class="keyword">private</span> User user;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Before</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setup</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    <span class="comment">// 注解方式, 必须调用这个</span></span><br><span class="line">    MockitoAnnotations.initMocks(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="stubbing"><a href="#stubbing" class="headerlink" title="stubbing"></a>stubbing</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//你可以mock一个实体类</span></span><br><span class="line">LinkedList mockedList = mock(LinkedList.class);</span><br><span class="line"></span><br><span class="line"><span class="comment">//处理指定行为</span></span><br><span class="line">when(mockedList.get(<span class="number">0</span>)).thenReturn(<span class="string">"first"</span>);</span><br><span class="line">when(mockedList.get(<span class="number">1</span>)).thenThrow(<span class="keyword">new</span> RuntimeException());</span><br><span class="line"></span><br><span class="line"><span class="comment">//将会打印"first"</span></span><br><span class="line">System.out.println(mockedList.get(<span class="number">0</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">//将会抛出runtime exception</span></span><br><span class="line">System.out.println(mockedList.get(<span class="number">1</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">//将会打印"null" 因为get(999)没有指定行为</span></span><br><span class="line">System.out.println(mockedList.get(<span class="number">999</span>));</span><br><span class="line"></span><br><span class="line">verify(mockedList).get(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
-<h5 id="验证行为"><a href="#验证行为" class="headerlink" title="验证行为"></a>验证行为</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">List mockedList = mock(List.class);</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用mock对象</span></span><br><span class="line">mockedList.add(<span class="string">"one"</span>);</span><br><span class="line">mockedList.clear();</span><br><span class="line"></span><br><span class="line"><span class="comment">//验证</span></span><br><span class="line">verify(mockedList).add(<span class="string">"one"</span>);</span><br><span class="line">verify(mockedList).clear();</span><br></pre></td></tr></table></figure>
-<h5 id="验证调用次数"><a href="#验证调用次数" class="headerlink" title="验证调用次数"></a>验证调用次数</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//using mock</span></span><br><span class="line">mockedList.add(<span class="string">"once"</span>);</span><br><span class="line"></span><br><span class="line">mockedList.add(<span class="string">"twice"</span>);</span><br><span class="line">mockedList.add(<span class="string">"twice"</span>);</span><br><span class="line"></span><br><span class="line">mockedList.add(<span class="string">"three times"</span>);</span><br><span class="line">mockedList.add(<span class="string">"three times"</span>);</span><br><span class="line">mockedList.add(<span class="string">"three times"</span>);</span><br><span class="line"></span><br><span class="line">verify(mockedList).add(<span class="string">"once"</span>);</span><br><span class="line">verify(mockedList, times(<span class="number">1</span>)).add(<span class="string">"once"</span>);</span><br><span class="line"></span><br><span class="line">verify(mockedList, times(<span class="number">2</span>)).add(<span class="string">"twice"</span>);</span><br><span class="line">verify(mockedList, times(<span class="number">3</span>)).add(<span class="string">"three times"</span>);</span><br><span class="line"></span><br><span class="line">verify(mockedList, never()).add(<span class="string">"never happened"</span>);</span><br><span class="line"></span><br><span class="line">verify(mockedList, atLeastOnce()).add(<span class="string">"three times"</span>);</span><br><span class="line">verify(mockedList, atLeast(<span class="number">2</span>)).add(<span class="string">"twice"</span>);</span><br><span class="line">verify(mockedList, atMost(<span class="number">5</span>)).add(<span class="string">"three times"</span>);</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>注意：Mockito不支持mock匿名类、final类、静态方法和private方法。Powermockito可以支持这些功能</p>
-</blockquote>
-<p><a href="https://static.javadoc.io/org.mockito/mockito-core/2.19.1/org/mockito/Mockito.html" target="_blank" rel="noopener">更多Mockito使用方法</a></p>
-<h3 id="Robolectric"><a href="#Robolectric" class="headerlink" title="Robolectric"></a>Robolectric</h3><h4 id="JUnit-Mockito的限制"><a href="#JUnit-Mockito的限制" class="headerlink" title="JUnit + Mockito的限制"></a>JUnit + Mockito的限制</h4><p>光有JUnit和Mockito是不够的, 一些涉及到android平台相关的代码, 就没法测试了. 比如与Context相关的代码就无法测试. 基于这些限制出现了Instrumentation, Espresso等跟Android平台相关的一些框架, 但是这些框架都必须依赖Android的运行环境, 也就是说必须在真机或模拟器上才能运行, 速度会非常慢. Robolectric基于jvm对重新实现Android的依赖, 使其不必依赖于真机或模拟器, 运行速度有了很大提升.</p>
-<blockquote>
-<p>虽然Robolectric功能很强大, 但是如果JUnit和Mockito能满足的情况下, 尽量还是用JUnit + Mockito组合</p>
-</blockquote>
-<h3 id="Espresso"><a href="#Espresso" class="headerlink" title="Espresso"></a>Espresso</h3><p>Espresso 是在2013年的 GTAC 上首次提出，目的是让开发人员能够快速地写出简洁，美观，可靠的 Android UI 测试。<br>相比于单元测试Espresso更像集成测试, ESpresso最强大的功能就是UI自动化测试.<br>有待研究…</p>
-<h2 id="项目应用及未来展望"><a href="#项目应用及未来展望" class="headerlink" title="项目应用及未来展望"></a>项目应用及未来展望</h2><p>目前项目中采用了JUnit + Mockito + Robolectric框架. 代码量还不多, 覆盖率基本为0. 目前只是应用到了数据库, 以及一些工具类和获取真实网络接口数据这些功能, 关于UI以及ViewModel, Presenter的测试还没有.</p>
-<ul>
-<li>引入Dagger2</li>
-<li>Espresso UI自动化测试</li>
-<li>完善单元测试基础模块, 定位支持等</li>
-<li>LiveData, ViewModel, Presenter的单元测试</li>
-</ul>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
-<li><a href="http://junit.org/" target="_blank" rel="noopener">JUnit 官网</a></li>
-<li><a href="https://static.javadoc.io/org.mockito/mockito-core/2.19.1/org/mockito/Mockito.html" target="_blank" rel="noopener">Mockito 文档</a></li>
-<li><a href="http://robolectric.org" target="_blank" rel="noopener">Robolectric 官网</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://eaglelzy.github.io/2018/04/16/react_native/Image组件调研/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lizy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lizy's Wiki">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/16/react_native/Image组件调研/" itemprop="url">Image组件在Android上的使用</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-16T10:18:01+08:00">
-                2018-04-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/ReactNative/" itemprop="url" rel="index">
-                    <span itemprop="name">ReactNative</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/04/16/react_native/Image组件调研/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/04/16/react_native/Image组件调研/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="使用介绍"><a href="#使用介绍" class="headerlink" title="使用介绍"></a>使用介绍</h2><p>rn 的图片组件是Image, 使用Image可以加载js图片,native图片和网络图片资源:</p>
-<h3 id="加载js图片资源"><a href="#加载js图片资源" class="headerlink" title="加载js图片资源"></a>加载js图片资源</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">├── button.js</span><br><span class="line">└── img</span><br><span class="line">    ├── check@<span class="number">2</span>x.png</span><br><span class="line">    └── check@<span class="number">3</span>x.png</span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Image source=&#123;<span class="built_in">require</span>(<span class="string">'./img/check.png'</span>)&#125; /&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="加载native资源"><a href="#加载native资源" class="headerlink" title="加载native资源"></a>加载native资源</h3><p>Image组件可以加载android本地,包括assets, mipmap, drawable以及sdcard上的图片资源:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// mipmap</span></span><br><span class="line">&lt;Image source=&#123;&#123; <span class="attr">uri</span>: <span class="string">'mipmap/ic_launcher'</span> &#125;&#125; /&gt;</span><br><span class="line"><span class="comment">// drawable</span></span><br><span class="line">&lt;Image source=&#123;&#123; <span class="attr">uri</span>: <span class="string">'ic_launcher'</span> &#125;&#125; /&gt;</span><br><span class="line"><span class="comment">// asset</span></span><br><span class="line">&lt;Image source=&#123;&#123; <span class="attr">uri</span>: <span class="string">'asset:/ic_launcher.png'</span> &#125;&#125; /&gt;</span><br><span class="line"><span class="comment">// sdcard</span></span><br><span class="line">&lt;Image source=&#123;&#123; <span class="attr">uri</span>: <span class="string">'file:/sdcard/ic_launcher.png'</span> &#125;&#125; /&gt;</span><br></pre></td></tr></table></figure></p>
-<h3 id="加载网络图片资源"><a href="#加载网络图片资源" class="headerlink" title="加载网络图片资源"></a>加载网络图片资源</h3><p>Image加载网络图片方式<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;Image source=&#123;&#123;<span class="attr">uri</span>: <span class="string">'https://facebook.github.io/react/img/logo_og.png'</span>&#125;&#125;</span><br><span class="line">       style=&#123;&#123;<span class="attr">width</span>: <span class="number">400</span>, <span class="attr">height</span>: <span class="number">400</span>&#125;&#125; /&gt;</span><br></pre></td></tr></table></figure></p>
-<p><a href="https://reactnative.cn/docs/0.45/images.html" target="_blank" rel="noopener">更多使用方式</a></p>
-<h2 id="重点"><a href="#重点" class="headerlink" title="重点"></a>重点</h2><p>Image组件android端底层使用的是fresco图片库, 功能还是很强大的, 几乎能满足所有的需求场景了.<br>有个问题是赶集客户端使用的图片库glide, 共用两套图片库的话在内存上肯定会造成不必要的浪费, 内存上会存在性能问题.</p>
-<h2 id="踩坑记录"><a href="#踩坑记录" class="headerlink" title="踩坑记录"></a>踩坑记录</h2><h3 id="defaultSource标签Android不生效"><a href="#defaultSource标签Android不生效" class="headerlink" title="defaultSource标签Android不生效"></a>defaultSource标签Android不生效</h3><p>Image有个defaultSource标签, 该标签是用来设置占位图的, 目前只在IOS上生效, 而在Android是不生效的.  有几种解决方案:</p>
-<ol>
-<li>在js端封装一下,通过绝对布局来实现占位图(可能会消耗不必要的内存)</li>
-<li>等最新版本发布, 看master分支源码是已经支持了的(什么时候发布还不确定)</li>
-<li>自定义native图片库替换掉fresco库(一劳永逸)</li>
+</li>
 </ol>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
-<li><a href="https://facebook.github.io/react-native/docs/images.html" target="_blank" rel="noopener">https://facebook.github.io/react-native/docs/images.html</a></li>
+<h2 id="synchronized与Lock"><a href="#synchronized与Lock" class="headerlink" title="synchronized与Lock"></a>synchronized与Lock</h2><p>基本语法上，ReentrantLock 与 synchronized 很相似，它们都具备一样的线程重入特性，只是代码写法上有点区别而已，一个表现为 API 层面的互斥锁（Lock），一个表现为原生语法层面的互斥锁（synchronized）。ReentrantLock 相对 synchronized 而言还是增加了一些高级功能，主要有以下三项：</p>
+<ul>
+<li>等待可中断：当持有锁的线程长期不释放锁时，正在等待的线程可以选择放弃等待，改为处理其他事情，它对处理执行时间非常上的同步块很有帮助。而在等待由 synchronized 产生的互斥锁时，会一直阻塞，是不能被中断的。</li>
+<li>可实现公平锁：多个线程在等待同一个锁时，必须按照申请锁的时间顺序排队等待，而非公平锁则不保证这点，在锁释放时，任何一个等待锁的线程都有机会获得锁。synchronized 中的锁时非公平锁，ReentrantLock 默认情况下也是非公平锁，但可以通过构造方法 ReentrantLock（ture）来要求使用公平锁。</li>
+<li>锁可以绑定多个条件：ReentrantLock 对象可以同时绑定多个 Condition 对象（名曰：条件变量或条件队列），而在 synchronized 中，锁对象的 wait()和 notify()或 notifyAll()方法可以实现一个隐含条件，但如果要和多于一个的条件关联的时候，就不得不额外地添加一个锁，而 ReentrantLock 则无需这么做，只需要多次调用 newCondition()方法即可。而且我们还可以通过绑定 Condition 对象来判断当前线程通知的是哪些线程（即与 Condition 对象绑定在一起的其他线程）。</li>
 </ul>
+<h2 id="volitile关键字"><a href="#volitile关键字" class="headerlink" title="volitile关键字"></a>volitile关键字</h2><p>java的内存模型<br>大家都知道，计算机在执行程序时，每条指令都是在CPU中执行的，而执行指令过程中，势必涉及到数据的读取和写入。由于程序运行过程中的临时数据是存放在主存（物理内存）当中的，这时就存在一个问题，由于CPU执行速度很快，而从内存读取数据和向内存写入数据的过程跟CPU执行指令的速度比起来要慢的多，因此如果任何时候对数据的操作都要通过和内存的交互来进行，会大大降低指令执行的速度。因此在CPU里面就有了高速缓存。 也就是，当程序在运行过程中，会将运算需要的数据从主存复制一份到CPU的高速缓存当中，那么CPU进行计算时就可以直接从它的高速缓存读取数据和向其中写入数据，当运算结束之后，再将高速缓存中的数据刷新到主存当中。<br>在Java虚拟机规范中试图定义一种Java内存模型（Java Memory Model，JMM）来屏蔽各个硬件平台和操作系统的内存访问差异，以实现让Java程序在各种平台下都能达到一致的内存访问效果。Java内存模型规定所有的变量都是存在主存当中（类似于前面说的物理内存），每个线程都有自己的工作内存（类似于前面的高速缓存）。线程对变量的所有操作都必须在工作内存中进行，而不能直接对主存进行操作。并且每个线程不能访问其他线程的工作内存。</p>
+<p><img src="/asserts/images/内存模型.png" alt=""></p>
+<p>深入分析volitile关键字<br>一旦一个共享变量被volitile关键字修饰，那么就具备了两层含义：<br>1) 保证了不同线程对这个变量的可见行，即一个线程修改了该变量的值，其他的线程会立马可见;<br>2) 禁止指令重排序。</p>
+<p>看一段代码:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//线程1</span></span><br><span class="line"><span class="keyword">boolean</span> stop = <span class="keyword">false</span>;</span><br><span class="line"><span class="keyword">while</span>(!stop)&#123;</span><br><span class="line">    doSomething();</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//线程2</span></span><br><span class="line">stop = <span class="keyword">true</span>;</span><br></pre></td></tr></table></figure></p>
+<p>很多人用这样的代码来控制线程的退出，大多数时候是没有问题的，但是也有可能会出现线程1退不出的问题.<br>每个线程在运行过程中都有自己的工作内存，那么线程1在运行的时候，会将stop变量的值拷贝一份放在自己的工作内存当中。那么当线程2更改了stop变量的值之后，但是还没来得及写入主存当中，线程2转去做其他事情了，那么线程1由于不知道线程2对stop变量的更改，因此还会一直循环下去。<br>但是用volatile修饰之后就变得不一样了：</p>
+<ol>
+<li>使用volatile关键字会强制将修改的值立即写入主存；</li>
+<li>使用volatile关键字的话，当线程2进行修改时，会导致线程1的工作内存中缓存变量stop的缓存行无效（反映到硬件层的话，就是CPU的L1或者L2缓存中对应的缓存行无效）；</li>
+<li>由于线程1的工作内存中缓存变量stop的缓存行无效，所以线程1再次读取变量stop的值时会去主存读取。</li>
+</ol>
+<p>所以线程1读取到的就是最新的正确的值。</p>
+<p>ConcurrentHashMap分析<br>java中的HashMap是线程不安全的，在多线程环境下会存在扩容时死循环导致cpu占用100%的问题, 因此在并发环境下不应该使用HashMap，而应该使用ConcurrentHashMap。 相比HashMap来说ConcurrentHashMap不仅是线程安全的，而且在效率上有了很大的提升。 </p>
+<ul>
+<li>针对Segment加锁，而不是对整个map加锁，大大提高了并发的效率;</li>
+<li>使用final不可变来保证put，remove等操作不会对get操作产生影响.</li>
+<li>使用volitile关键字保证put之后再调用get获取的肯定是最新值。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">transient</span> <span class="keyword">volatile</span> <span class="keyword">int</span> count;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">V <span class="title">get</span><span class="params">(Object key, <span class="keyword">int</span> hash)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (count != <span class="number">0</span>) &#123; <span class="comment">// read-volatile</span></span><br><span class="line">        HashEntry&lt;K,V&gt; e = getFirst(hash);</span><br><span class="line">        <span class="keyword">while</span> (e != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (e.hash == hash &amp;&amp; key.equals(e.key)) &#123;</span><br><span class="line">                V v = e.value;</span><br><span class="line">                <span class="keyword">if</span> (v != <span class="keyword">null</span>)</span><br><span class="line">                    <span class="keyword">return</span> v;</span><br><span class="line">                <span class="keyword">return</span> readValueUnderLock(e); <span class="comment">// recheck</span></span><br><span class="line">            &#125;</span><br><span class="line">            e = e.next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">V <span class="title">put</span><span class="params">(K key, <span class="keyword">int</span> hash, V value, <span class="keyword">boolean</span> onlyIfAbsent)</span> </span>&#123;</span><br><span class="line">    lock();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">int</span> c = count;</span><br><span class="line">        <span class="keyword">if</span> (c++ &gt; threshold) <span class="comment">// ensure capacity</span></span><br><span class="line">            rehash();</span><br><span class="line">        HashEntry&lt;K,V&gt;[] tab = table;</span><br><span class="line">        <span class="keyword">int</span> index = hash &amp; (tab.length - <span class="number">1</span>);</span><br><span class="line">        HashEntry&lt;K,V&gt; first = tab[index];</span><br><span class="line">        HashEntry&lt;K,V&gt; e = first;</span><br><span class="line">        <span class="keyword">while</span> (e != <span class="keyword">null</span> &amp;&amp; (e.hash != hash || !key.equals(e.key)))</span><br><span class="line">            e = e.next;</span><br><span class="line">  </span><br><span class="line">        V oldValue;</span><br><span class="line">        <span class="keyword">if</span> (e != <span class="keyword">null</span>) &#123;</span><br><span class="line">            oldValue = e.value;</span><br><span class="line">            <span class="keyword">if</span> (!onlyIfAbsent)</span><br><span class="line">                e.value = value;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            oldValue = <span class="keyword">null</span>;</span><br><span class="line">            ++modCount;</span><br><span class="line">            tab[index] = <span class="keyword">new</span> HashEntry&lt;K,V&gt;(key, hash, first, value);</span><br><span class="line">            count = c; <span class="comment">// write-volatile</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> oldValue;</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        unlock();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到count是volatile的，实际上这里里面利用了volatile的语义：<br>对volatile字段的写入操作happens-before于每一个后续的同一个字段的读操作。实际上put、remove等操作也会更新count的值，所以当竞争发生的时候，volatile的语义可以保证写操作在读操作之前，也就保证了写操作对后续的读操作都是可见的，这样后面get的后续操作就可以拿到完整的元素内容。</p>
+<h2 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h2><p>合理利用线程池可以带来三个好处：</p>
+<ul>
+<li>降低资源消耗</li>
+<li>提高响应速度</li>
+<li>提高线程可管理性</li>
+</ul>
+<p>可以通过ThreadPoolExecutor来创建一个线程池：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, milliseconds,runnableTaskQueue, handler);</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>corePoolSize（线程池的基本大小）：当提交一个任务到线程池时，线程池会创建一个线程来执行任务，即使其他空闲的基本线程能够执行新任务也会创建线程，等到需要执行的任务数大于线程池基本大小时就不再创建。如果调用了线程池的prestartAllCoreThreads方法，线程池会提前创建并启动所有基本线程。</li>
+<li>maximumPoolSize（线程池最大大小）：线程池允许创建的最大线程数。如果队列满了，并且已创建的线程数小于最大线程数，则线程池会再创建新的线程执行任务。值得注意的是如果使用了无界的任务队列这个参数就没什么效果。</li>
+<li>keepAliveTime（线程活动保持时间）：线程池的工作线程空闲后，保持存活的时间。所以如果任务很多，并且每个任务执行的时间比较短，可以调大这个时间，提高线程的利用率。</li>
+<li>TimeUnit（线程活动保持时间的单位）：可选的单位有天（DAYS），小时（HOURS），分钟（MINUTES），毫秒(MILLISECONDS)，微秒(MICROSECONDS, 千分之一毫秒)和毫微秒(NANOSECONDS, 千分之一微秒)。</li>
+<li>ThreadFactory：用于设置创建线程的工厂，可以通过线程工厂给每个创建出来的线程设置更有意义的名字。</li>
+<li>runnableTaskQueue（任务队列）：用于保存等待执行的任务的阻塞队列。 可以选择以下几个阻塞队列。<ul>
+<li>ArrayBlockingQueue：是一个基于数组结构的有界阻塞队列，此队列按 FIFO（先进先出）原则对元素进行排序。</li>
+<li>LinkedBlockingQueue：一个基于链表结构的阻塞队列，此队列按FIFO （先进先出） 排序元素，吞吐量通常要高于ArrayBlockingQueue。静态工厂方法Executors.newFixedThreadPool()使用了这个队列。</li>
+<li>SynchronousQueue：一个不存储元素的阻塞队列。每个插入操作必须等到另一个线程调用移除操作，否则插入操作一直处于阻塞状态，吞吐量通常要高于LinkedBlockingQueue，静态工厂方法Executors.newCachedThreadPool使用了这个队列。</li>
+<li>PriorityBlockingQueue：一个具有优先级的无限阻塞队列。</li>
+</ul>
+</li>
+<li>RejectedExecutionHandler（饱和策略）：当队列和线程池都满了，说明线程池处于饱和状态，那么必须采取一种策略处理提交的新任务。这个策略默认情况下是AbortPolicy，表示无法处理新任务时抛出异常。以下是JDK1.5提供的四种策略。<ul>
+<li>AbortPolicy：直接抛出异常。</li>
+<li>CallerRunsPolicy：只用调用者所在线程来运行任务。</li>
+<li>DiscardOldestPolicy：丢弃队列里最近的一个任务，并执行当前任务。</li>
+<li>DiscardPolicy：不处理，丢弃掉。</li>
+<li>当然也可以根据应用场景需要来实现RejectedExecutionHandler接口自定义策略。如记录日志或持久化不能处理的任务。</li>
+</ul>
+</li>
+</ul>
+<p>AsyncTask 代码解析</p>
+<h2 id="工具类"><a href="#工具类" class="headerlink" title="工具类"></a>工具类</h2><p>并发工具类中提供了一些并发流程控制的手段，主要有CountDownLatch，CyclicBarriery和Semaphore</p>
+<ul>
+<li>CountDownLatch能够使一个线程等待，等待其他线程完成各自任务后再执行当前线程工作。</li>
+<li>CyclicBarrier可以实现一组线程等待至某个状态后再同时执行。而且可复用</li>
+<li>Semaphore信号量，可以控制多个线程访问有限资源，通过acquire()获取一个许可，如果没有就等待，通过release释放一个许可。</li>
+</ul>
+<h2 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h2><ol>
+<li>生产者消费者</li>
+<li>ThreadLocal和Looper</li>
+</ol>
 
           
         
@@ -1747,7 +812,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://eaglelzy.github.io/2018/03/02/android/内存优化总结/">
+    <link itemprop="mainEntityOfPage" href="http://eaglelzy.github.io/2017/01/07/examples/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Lizy">
@@ -1766,7 +831,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/03/02/android/内存优化总结/" itemprop="url">内存优化总结</a></h1>
+                <a class="post-title-link" href="/2017/01/07/examples/" itemprop="url">examples</a></h1>
         
 
         <div class="post-meta">
@@ -1778,8 +843,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-02T10:42:00+08:00">
-                2018-03-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-07T20:41:33+08:00">
+                2017-01-07
               </time>
             
 
@@ -1789,6 +854,28 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/随笔/" itemprop="url" rel="index">
+                    <span itemprop="name">随笔</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -1797,8 +884,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/03/02/android/内存优化总结/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/03/02/android/内存优化总结/" itemprop="commentCount"></span>
+                <a href="/2017/01/07/examples/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/07/examples/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1828,16 +915,238 @@
       
         
           
-            <p>8.6.0版本针对OOM做了一些处理, 从4个方面进行了优化. 现总结如下:</p>
-<h2 id="图片的占位图"><a href="#图片的占位图" class="headerlink" title="图片的占位图"></a>图片的占位图</h2><h3 id="ImageManager-showImage的不合理使用"><a href="#ImageManager-showImage的不合理使用" class="headerlink" title="ImageManager.showImage的不合理使用"></a>ImageManager.showImage的不合理使用</h3><p>项目中有大量类似以下代码:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Bitmap holder = BitmapFactory.decodeResource(getResources(), R.drawable.post_list_place_holder);</span><br><span class="line">Bitmap fail = BitmapFactory.decodeResource(getResources(), R.drawable.post_list_place_holder);</span><br><span class="line">ImageManager.showImage(view, url, holder, fail);</span><br></pre></td></tr></table></figure></p>
-<p>每个占位图都会创建一个新的bitmap, 尤其是一些列表页这样会消耗很多不必要的内存, 尽量避免类似代码, 而应该采用如下形式:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ImageManager.showImage(view, url, R.drawable.post_list_place_holder, R.drawable.post_list_place_holder);</span><br></pre></td></tr></table></figure></p>
-<p>这样写相同的占位图会复用一个bitmap, 从而节省内存</p>
-<h3 id="针对大的占位图"><a href="#针对大的占位图" class="headerlink" title="针对大的占位图"></a>针对大的占位图</h3><p>项目中有一些比较大的占位图, 比如首页广告轮播图, 房产顶部图片浏览占位图, 这些占位图分辨率都很高占的内存很大, 而且有很多不同尺寸的占位图存在. 对于这些非常大的占位图, 专门定义了一个layer-list作为background, 而把大的占位图删掉<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;layer-list</span><br><span class="line">    xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span>&gt;</span><br><span class="line">    &lt;item&gt;</span><br><span class="line">        &lt;shape android:shape=<span class="string">"rectangle"</span>&gt;</span><br><span class="line">            &lt;solid android:color=<span class="string">"#f3f3f3"</span>/&gt;</span><br><span class="line">        &lt;/shape&gt;</span><br><span class="line">    &lt;/item&gt;</span><br><span class="line">    &lt;item android:bottom=<span class="string">"40dp"</span>&gt;</span><br><span class="line">        &lt;bitmap</span><br><span class="line">            android:gravity=<span class="string">"center_horizontal|bottom"</span></span><br><span class="line">            android:src=<span class="string">"@drawable/default_ganji_icon"</span>/&gt;</span><br><span class="line">    &lt;/item&gt;</span><br><span class="line">&lt;/layer-list&gt;</span><br></pre></td></tr></table></figure></p>
-<p>这样虽然多了一层背景设置, 但是该背景占用内存很小, 而且多个场景还可以复用一个背景, 也会省去很多内存</p>
-<h2 id="针对不透明的大图片使用glide加载"><a href="#针对不透明的大图片使用glide加载" class="headerlink" title="针对不透明的大图片使用glide加载"></a>针对不透明的大图片使用glide加载</h2><p>项目中有一些不透明的大图是直接在布局设置的背景或src(比如用户中心顶部背景图), 这样加载出来的图片是ARBG_8888格式的, 可以使用如下代码调用:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ImageManager.showImage(<span class="meta">@NonNull</span> ImageView imageView, <span class="meta">@NonNull</span> Integer resourceId, <span class="meta">@Nullable</span> Transformation transformation);</span><br></pre></td></tr></table></figure></p>
-<p>这样加载的图片格式为RBG_565, 内存可以减少到原来的一半</p>
-<h2 id="工友圈图片流加载模式设置为atMost"><a href="#工友圈图片流加载模式设置为atMost" class="headerlink" title="工友圈图片流加载模式设置为atMost"></a>工友圈图片流加载模式设置为atMost</h2><p>通过android studio查看工友圈瀑布流图片所占内存发现有很多尺寸相对较大图片占了比较大的内存, glide在加载图片时默认采用压缩方式为AT_LEAST, 会把图片压缩到1倍和2倍之间, 可以把压缩方式改为AT_MOST, 这样图片会压缩到1/2到1之间, 从而节省一半内存, 而图片实际看起来也没有太大的失真</p>
-<h2 id="针对容易发生OOM的机型执行小内存分配策略"><a href="#针对容易发生OOM的机型执行小内存分配策略" class="headerlink" title="针对容易发生OOM的机型执行小内存分配策略"></a>针对容易发生OOM的机型执行小内存分配策略</h2><p>从bugly上可以看到有一些机型很容易发生OOM, 比如小米4, 三星GT-N7100等, 针对这些机型在分配图片缓存时适当降低内存分配大小也可以减少OOM概率. </p>
+            <h2 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h2><hr>
+<hr>
+<h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><ul>
+<li>文本1</li>
+<li>文本2</li>
+<li>文本3</li>
+</ul>
+<ul>
+<li><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.<br>Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi,<br>viverra nec, fringilla in, laoreet vitae, risus.</p>
+<p>Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi,<br>viverra nec, fringilla in, laoreet vitae, risus.</p>
+</li>
+<li><p>Donec sit amet nisl. Aliquam semper ipsum sit amet velit.<br>Suspendisse id sem consectetuer libero luctus adipiscing.</p>
+</li>
+</ul>
+<ol>
+<li>Bird</li>
+<li>Magic</li>
+<li>Dog</li>
+</ol>
+<h2 id="链接和图片"><a href="#链接和图片" class="headerlink" title="链接和图片"></a>链接和图片</h2><p><a href="http://www.jianshu.com" target="_blank" rel="noopener">简书</a></p>
+<p>自动链接<br><a href="https://eaglelzy.github.io">https://eaglelzy.github.io</a></p>
+<p>我经常去的几个网站<a href="http://www.google.com" target="_blank" rel="noopener">Google</a>,<a href="https://yuhongjun.github.io/" title="Demi的随笔和技术空间" target="_blank" rel="noopener">Demi的随笔和技术空间</a>,<a href="https://yuhongjun.github.io/" target="_blank" rel="noopener">Demi的随笔和技术空间</a>。</p>
+<p><img src="http://ww4.sinaimg.cn/bmiddle/aa397b7fjw1dzplsgpdw5j.jpg" alt=""></p>
+<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><blockquote>
+<p>一盏灯， 一片昏黄； 一简书， 一杯淡茶。 守着那一份淡定， 品读属于自己的寂寞。 保持淡定， 才能欣赏到最美丽的风景！ 保持淡定， 人生从此不再寂寞。</p>
+</blockquote>
+<blockquote>
+<p>一盏灯， 一片昏黄； 一简书， 一杯淡茶。 </p>
+<blockquote>
+<p>嵌套引用：守着那一份淡定， 品读属于自己的寂寞。 保持淡定， 才能欣赏到最美丽的风景！ 保持淡定， 人生从此不再寂寞。</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<h2 id="这是个标题"><a href="#这是个标题" class="headerlink" title="这是个标题"></a>这是个标题</h2><ol>
+<li>第一行</li>
+<li>第二行</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span> return shell_exec("echo")</span><br><span class="line"><span class="meta">&gt;</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+</blockquote>
+<h3 id="引用书上的句子"><a href="#引用书上的句子" class="headerlink" title="引用书上的句子"></a>引用书上的句子</h3><blockquote><p>Do not just seek happiness for yourself. Seek happiness for all. Through kindness. Through mercy.</p>
+<footer><strong>David Levithan</strong><cite>Wide Awake</cite></footer></blockquote>
+<h3 id="引用Twitter"><a href="#引用Twitter" class="headerlink" title="引用Twitter"></a>引用Twitter</h3><blockquote><p>NEW: DevDocs now comes with syntax highlighting. <a href="http://devdocs.io" target="_blank" rel="noopener">http://devdocs.io</a></p>
+<footer><strong>@DevDocs</strong><cite><a href="https://twitter.com/devdocs/status/356095192085962752" target="_blank" rel="noopener">twitter.com/devdocs/status/356095192085962752</a></cite></footer></blockquote>
+<h3 id="引用网络上的文章"><a href="#引用网络上的文章" class="headerlink" title="引用网络上的文章"></a>引用网络上的文章</h3><blockquote><p>Every interaction is both precious and an opportunity to delight.</p>
+<footer><strong>Seth Godin</strong><cite><a href="http://sethgodin.typepad.com/seths_blog/2009/07/welcome-to-island-marketing.html" target="_blank" rel="noopener">Welcome to Island Marketing</a></cite></footer></blockquote>
+<h2 id="粗体和斜体"><a href="#粗体和斜体" class="headerlink" title="粗体和斜体"></a>粗体和斜体</h2><p><em>一盏灯</em>， 一片昏黄；<strong>一简书</strong>， 一杯淡茶。 守着那一份淡定， 品读属于自己的寂寞。 保持淡定， 才能欣赏到最美丽的风景！ 保持淡定， 人生从此不再寂寞。</p>
+<h2 id="代码和引用"><a href="#代码和引用" class="headerlink" title="代码和引用"></a>代码和引用</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> sudo pacman -Syu</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><figcaption><span>main.java</span><a href="http://www.baidu.com" target="_blank" rel="noopener">more</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"hello world!"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote class="pullquote [class]"><p>content</p>
+</blockquote>
+<div class="video-container"><iframe src="//www.youtube.com/embed/video_id" frameborder="0" allowfullscreen></iframe></div>
+<h2 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h2><table>
+<thead>
+<tr>
+<th>Tables</th>
+<th style="text-align:center">Are</th>
+<th style="text-align:right">Cool</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>col 3 is</td>
+<td style="text-align:center">right-aligned</td>
+<td style="text-align:right">$1600</td>
+</tr>
+<tr>
+<td>col 2 is</td>
+<td style="text-align:center">centered</td>
+<td style="text-align:right">$12</td>
+</tr>
+<tr>
+<td>zebra stripes</td>
+<td style="text-align:center">are neat</td>
+<td style="text-align:right">$1</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight graph"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">    A--&gt;B;</span><br><span class="line">    A--&gt;C;</span><br><span class="line">    B--&gt;D;</span><br><span class="line">    C--&gt;E;</span><br><span class="line">    E--&gt;F;</span><br><span class="line">    D--&gt;F;</span><br><span class="line">    F--&gt;G;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://eaglelzy.github.io/2017/01/07/随笔/配置Vim支持Hexo/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lizy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lizy's Wiki">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/01/07/随笔/配置Vim支持Hexo/" itemprop="url">配置Vim支持Hexo</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-07T13:22:59+08:00">
+                2017-01-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/hexo/" itemprop="url" rel="index">
+                    <span itemprop="name">hexo</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/01/07/随笔/配置Vim支持Hexo/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/07/随笔/配置Vim支持Hexo/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Hexo 是一个快速、简洁且高效的博客框架。vim又是一款优秀的编辑器，如果能把Hexo和vim结合起来就非常酷啦。<br>为了把两者结合起来我写了一个很简单的一个插件<a href="https://github.com/eaglelzy/vim-hexo" target="_blank" rel="noopener">vim-hexo</a>。 按照说明安装完插件后，就可以使用了.</p>
 
           
         
@@ -1876,10 +1185,6 @@
   </section>
 
   
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
 
 
           </div>
@@ -1925,7 +1230,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
